@@ -6,11 +6,11 @@ clips.json: {"label": "Reel: ...", "clips": [{"o_start", "o_end", "label",
              "h": [...] (optional; only when every clip has it is a 16:9 plan made too)}]}
 Clip times are on the rough cut OUTPUT timeline (o), picked at pauses (never inside a word).
 Shot spec: [o_time or null, target]; null = at the clip start (a cut). Targets: ["him", scale]
-or ["item", <board.json key>, scale] (his face kept in when it fits) or
-["item", <key>, scale, "solo"] (the item alone, his face fully out of the window). Scale is relative to the widest window of the aspect
+or ["item", <board.json key>, scale] (the speaker's face kept in when it fits) or
+["item", <key>, scale, "solo"] (the item alone, the speaker's face fully out of the window). Scale is relative to the widest window of the aspect
 (1215 x 2160 source px for 9:16, the full 3840 x 2160 for 16:9).
 Every reel cut changes framing; eased moves (critically damped spring) land on the board item
-as he names it. The vertical plan is a 9:16 window that follows the action in the 4K wide shot.
+as the speaker names it. The vertical plan is a 9:16 window that follows the action in the 4K wide shot.
 Writes reel/reel-plan.json, reel/props_reel_<kind>.json (and the identical _abs copy, absolute
 source path) and reel/reel_audio.wav (the mastered long form audio cut at the same frame exact
 clip edges, 30 ms fades).
@@ -114,7 +114,7 @@ def framing(target, o0, o1, ar):
     base_w = SW if ar >= 1 else SH * ar  # 3840 for 16:9, 1215 for 9:16
     kind = target[0]
     faces, wrists = faces_in(o0, o1)
-    if not faces:  # turned to the board for the whole segment: his nearest face within 2 s
+    if not faces:  # turned to the board for the whole segment: the speaker's nearest face within 2 s
         faces, _ = faces_in(o0 - 2.0, o1 + 2.0)
     fu = union(faces) if faces else None
     if kind == "him":
@@ -160,8 +160,8 @@ def framing(target, o0, o1, ar):
             out.append(ix * iy / ((fb[2] - fb[0]) * (fb[3] - fb[1])))
         return out
 
-    # 1) item and his whole face together, as tight as possible down to 1.0x
-    #    (skipped for ["item", name, scale, "solo"]: the item alone, his face fully out of frame)
+    # 1) item and the speaker's whole face together, as tight as possible down to 1.0x
+    #    (skipped for ["item", name, scale, "solo"]: the item alone, the speaker's face fully out of frame)
     solo = len(target) > 3 and target[3] == "solo"
     s_ = sc
     while fu and not solo and s_ >= 1.0 - 1e-9:
@@ -170,7 +170,7 @@ def framing(target, o0, o1, ar):
         if inside(both, G, ar, 0.02):
             return G, f"{name}+him {base_w / G[2]:.2f}x"
         s_ = round(s_ - 0.05, 3)
-    # 2) item at the target scale with his face fully out of the window (never half a face)
+    # 2) item at the target scale with the speaker's face fully out of the window (never half a face)
     F = pin_top(clampv((Rp[0] + Rp[2]) / 2, (Rp[1] + Rp[3]) / 2, base_w / sc, ar))
     best = None
     for k in range(0, 41):
@@ -192,7 +192,7 @@ def framing(target, o0, o1, ar):
         if inside(both, G, ar, 0.0):
             return G, f"{name}+him {base_w / G[2]:.2f}x"
     if fu:
-        # last resort: widest window with his whole face in at the far edge; the item may lose its left edge
+        # last resort: widest window with the speaker's whole face in at the far edge; the item may lose its left edge
         w = SW if ar >= 1 else SH * ar
         G = clampv(fu[2] + 30 - w / 2, F[1], w, ar)
         return G, f"{name}+him (face kept) {base_w / G[2]:.2f}x"

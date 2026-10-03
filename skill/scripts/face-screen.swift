@@ -17,8 +17,8 @@
 //
 // Exit: 0 every file PASSES, 1 any REJECT, 2 usage or read error.
 //
-// Thresholds: calibrated on real 4K frames of ONE presenter from three whiteboard takes. He has
-// naturally heavy lids, so the eye floor is set from his own frames, not from a generic face: a
+// Thresholds: calibrated on real 4K frames of ONE presenter from three whiteboard takes. That presenter has
+// naturally heavy lids, so the eye floor is set from that presenter's own frames, not from a generic face: a
 // sleepy frame REJECTS and frames picked by eye as fully open PASS. If the gate rejects every
 // frame of another presenter, recalibrate the five constants below on that person: run it on
 // stills you would accept and stills you would not, and move each floor between the two groups.

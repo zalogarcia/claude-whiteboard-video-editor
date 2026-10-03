@@ -1,7 +1,7 @@
 """Per-frame "keep out" boxes for reel overlays (captions, headline), in OUTPUT pixels.
 
 For every frame of a reel render it maps, through that frame's camera viewport:
-  * his face (Apple Vision face box from pose_4fps.jsonl, interpolated to the frame's time on
+  * the speaker's face (Apple Vision face box from pose_4fps.jsonl, interpolated to the frame's time on
     the rough cut timeline, padded for hair above and beard below), and
   * the board item(s) the camera is on (the shot's framing target and, from the start of an
     eased move, the move's destination), from tools/board.json.
@@ -35,7 +35,7 @@ def load_pose(path: Path):
 
 def face_at(pose, t, lo, hi):
     """Union of the pose samples that bracket time t, using only samples inside the rough cut
-    segment [lo, hi) that t belongs to (a cut is a jump in his position, so never mix the two
+    segment [lo, hi) that t belongs to (a cut is a jump in the speaker's position, so never mix the two
     sides). Conservative on purpose: a keep out box may be a little big, never late."""
     ks = [k for k in (int(t * 4.0), int(t * 4.0) + 1) if lo - 1e-6 <= k / 4.0 < hi and 0 <= k < len(pose)]
     if not ks:

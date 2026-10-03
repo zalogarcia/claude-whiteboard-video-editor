@@ -45,10 +45,10 @@ for i, (a, b) in enumerate(spans):
         tot_j += b - a
     elif i == 0 and a == 0:
         first = wordtoks[0]
-        why = f"head: before his first kept word (\"{first['text'].strip()}\" at {first['start']:.2f})" if not words else "head"
+        why = f"head: before the first kept word (\"{first['text'].strip()}\" at {first['start']:.2f})" if not words else "head"
     elif i == len(spans) - 1 and abs(b - src_dur) < 0.001:
         last = wordtoks[-1]
-        why = f"tail: after his last word (\"{last['text'].strip()}\" at {last['end']:.2f})" if not words else "tail"
+        why = f"tail: after the last word (\"{last['text'].strip()}\" at {last['end']:.2f})" if not words else "tail"
     else:
         why = "dead air (a pause of 0.4 s or more between words, cut down to the edge padding)"
     said = " ".join(t['text'].strip() for t in words)

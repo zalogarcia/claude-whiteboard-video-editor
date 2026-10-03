@@ -1,4 +1,4 @@
-"""Audit: for every 0.25 s pose sample on a cut's output timeline, what fraction of his face box
+"""Audit: for every 0.25 s pose sample on a cut's output timeline, what fraction of the speaker's face box
 is inside the viewport. A face that is 10% to 90% inside is a half-cut face at the frame edge."""
 import json, sys
 E = sys.argv[1]; cam_file = sys.argv[2]; ar = eval(sys.argv[3]); timeline = sys.argv[4]  # 'lf' or 'reel'

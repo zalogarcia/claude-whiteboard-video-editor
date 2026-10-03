@@ -4,7 +4,7 @@
 // For each consecutive pair of frames it block-matches ~300 textured blocks (coarse search
 // at half resolution, then a +-3 px search at full resolution and a parabolic sub-pixel
 // fit), then fits p' = s * p + t (zoom about the frame centre plus a shift) with RANSAC, so
-// his moving body is rejected as outliers and only the static board and wall drive the fit.
+// the speaker's moving body is rejected as outliers and only the static board and wall drive the fit.
 //
 // Usage: node measure_motion.mjs <video> <firstFrame> <lastFrame> <camera.json> [outW outH]
 // camera.json: {"camera": [[x0, y0, w], ...]} per output frame (4K source px)

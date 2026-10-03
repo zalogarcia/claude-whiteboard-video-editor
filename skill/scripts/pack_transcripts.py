@@ -38,7 +38,7 @@ def is_filler(w: dict) -> bool:
 
 
 def is_cutoff(w: dict) -> bool:
-    """Scribe marks a word he broke off mid-way with a trailing dash ("has--")."""
+    """Scribe marks a word the speaker broke off mid-way with a trailing dash ("has--")."""
     return w.get("type") == "word" and (w.get("text") or "").rstrip().endswith("-")
 
 

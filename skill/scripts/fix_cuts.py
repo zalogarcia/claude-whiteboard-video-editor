@@ -23,7 +23,7 @@ for k, s in enumerate(plan["shots"]):
     base = [s["framing"]["cx"], s["framing"]["cy"], s["framing"]["w"]]
     if differ(base, prev) >= 1:
         continue
-    # prefer looser framings (his face and hands stay in), the full wide last-but-one, tighter only as a last resort
+    # prefer looser framings (the speaker's face and hands stay in), the full wide last-but-one, tighter only as a last resort
     for w2 in (base[2] * 1.2, base[2] * 1.4, SW, base[2] / 1.2, base[2] / 1.4):
         G = clamp(base[0], base[1], w2)
         if differ(G, prev) >= 1:

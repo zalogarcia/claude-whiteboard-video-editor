@@ -1,5 +1,5 @@
-"""When is he writing at (or pointing into) which board item? Wrist joint inside an item rect
-(plus a margin) with the arm reaching screen-left of his shoulders, from frames/pose_4fps.jsonl.
+"""When is the speaker writing at (or pointing into) which board item? Wrist joint inside an item rect
+(plus a margin) with the arm reaching screen-left of the speaker's shoulders, from frames/pose_4fps.jsonl.
 Usage: python3 writing.py <edit_dir>; prints intervals and writes frames/writing_intervals.json.
 Use it to time item focus events (tools/focus_<label>.json)."""
 import json, sys
@@ -19,7 +19,7 @@ for k, r in enumerate(rows):
         x, y = j[wr][0] * 3840, j[wr][1] * 2160
         sh = [j[n][0] * 3840 for n in ("lSh", "rSh") if n in j and j[n][2] > 0.3]
         if not sh: continue
-        reach = x < min(sh) - 220  # arm extended screen-left of his shoulders, toward the board
+        reach = x < min(sh) - 220  # arm extended screen-left of the speaker's shoulders, toward the board
         raised = el in j and j[el][1] * 2160 > y - 40 and reach
         for it in items:
             x0, y0, x1, y1 = board[it]

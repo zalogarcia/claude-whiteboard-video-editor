@@ -8,10 +8,10 @@ camera file [x0, y0, w] in 4K source pixels (h = w * 9 / 16 for 16:9).
 Rules encoded here (from the brief):
   * every cut changes the framing (hard punch in or out), never animated across a cut
   * eased moves only inside a segment: critically damped spring, no overshoot, 0.6 to 1.0 s
-  * targets come from the content: each board item when he introduces or marks it, the
-    caller and title when he names them, close ups on him for key lines
+  * targets come from the content: each board item when the speaker introduces or marks it, the
+    caller and title when the speaker names them, close ups on the speaker for key lines
   * never past 2.0x (viewport at least 1920 px wide in the 3840 px source)
-  * his face (and hands, when they fit) stay inside every speaker framing for the whole hold
+  * the speaker's face (and hands, when they fit) stay inside every speaker framing for the whole hold
 """
 from __future__ import annotations
 import json, math, sys
@@ -86,7 +86,7 @@ WIDE = clamp(SW / 2, SH / 2, SW)
 
 
 def speaker(pose: Pose, t0, t1, scale, face_frac=0.34):
-    """Frame him at `scale`; face boxes over the whole hold must stay inside with a margin,
+    """Frame the speaker at `scale`; face boxes over the whole hold must stay inside with a margin,
     hands too when they fit. Steps the scale down until the hold fits."""
     sp = pose.span(t0, t1)
     if not sp:
@@ -162,7 +162,7 @@ def _item(board, pose: Pose, name, t0, t1, scale):
         if inside(R, F) or sc <= 1.0:
             break
         sc = round(sc - 0.05, 3)
-    # pull his face in too when it fits beside the item at this scale
+    # pull the speaker's face in too when it fits beside the item at this scale
     sp = pose.span(t0, t1)
     if sp:
         fu = union([s["face"] for s in sp])
@@ -170,7 +170,7 @@ def _item(board, pose: Pose, name, t0, t1, scale):
         G = clamp((both[0] + both[2]) / 2, (both[1] + both[3]) / 2, F[2])
         if inside(both, G, 0.02):
             return G, f"{name}+face"
-        # otherwise favour the item but slide toward him while the item stays fully in
+        # otherwise favour the item but slide toward the speaker while the item stays fully in
         best = F
         for k in range(1, 21):
             H = clamp(F[0] + (G[0] - F[0]) * k / 20, F[1] + (G[1] - F[1]) * k / 20, F[2])
@@ -237,7 +237,7 @@ def build(segments, pose, board, events, total_frames, label):
             if differ(G, prev) >= 1:
                 F, why, name = G, why2, name2
             else:
-                # last resort: a 1.2x punch on him (or out of the previous tight framing)
+                # last resort: a 1.2x punch on the speaker (or out of the previous tight framing)
                 if prev[2] >= SW * 0.95:
                     F, why = speaker(pose, phases[0][0], phases[0][1], 1.2)
                     name = f"med {SW / F[2]:.2f}x"

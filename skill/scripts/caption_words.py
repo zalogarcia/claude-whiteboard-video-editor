@@ -1,4 +1,4 @@
-"""Caption words for a reel: wording from the long form's full context Scribe transcript (what he
+"""Caption words for a reel: wording from the long form's full context Scribe transcript (what the speaker
 said, already checked against the rough cut), timing from a Scribe pass of the reel audio itself.
 
 Usage: python3 caption_words.py <expected_words.json> <reel_scribe.json> <out.json> [fix.json]

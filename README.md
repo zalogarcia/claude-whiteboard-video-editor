@@ -85,7 +85,7 @@ These are rough numbers.
 
 ## Check that it works on your Mac
 
-The skill ships a proof run that takes a short slice of one of your takes through the whole rail: `scripts/selftest.sh`. It needs a board rectangle file, a focus file, a clips file and three headlines for that slice. Ask Claude: "Run the whiteboard skill's selftest on 20 seconds of this take." It ends with `green so far: 9 of 9 stages` when everything works.
+The skill ships a proof run that takes a short slice of one of your takes through the whole rail: `scripts/selftest.sh`. It needs a board rectangle file, a focus file, a clips file and three headlines for that slice. Ask Claude: "Run the whiteboard skill's selftest on 20 seconds of this take." It ends with `green so far: 9 of 9 stages` when everything works. Claude runs it one stage at a time, because the reel stage alone can take close to 10 minutes on a busy Mac. If a stage still runs out of time, run `scripts/selftest.sh` in your own terminal.
 
 ## Limits
 

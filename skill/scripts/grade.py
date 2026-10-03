@@ -24,7 +24,7 @@ F, in order, on full range R'G'B' 0..1:
 Gates (thresholds tested on three takes of one presenter in the colour test):
  G1 white board  board patch C*ab <= 3.0 and b* >= -1.0 on every measured frame
  G2 skin hue     every face frame in 123 +-8 deg, median shift against the same source frames <= 3 deg
- G3 face luma    every face frame 70..190 (full range), MEAN 100..165 (about 40..65 IRE). The mean, not the median: his
+ G3 face luma    every face frame 70..190 (full range), MEAN 100..165 (about 40..65 IRE). The mean, not the median: the
                  face luma is bimodal (85 to 95 turned to the board, 125 to 155 facing the lens) and a median lands in the gap
  G4 board clip   board pixels with luma >= 253 <= 0.01 %, luma >= 245 <= 0.5 %, every sampled frame
  G5 cut jump     every cut: board patch dE76 <= 2.0 between the last frame before and the first after
@@ -196,7 +196,7 @@ def cmd_measure(E, L, src, n=24):
     med = lambda xs: st.median(xs) if xs else None
     sk = [r["skin"] for r in per if "skin" in r]
     if len(sk) < 3:
-        sys.exit(f"grade measure: his face was found in only {len(sk)} of {len(frames)} frames; need 3")
+        sys.exit(f"grade measure: the speaker's face was found in only {len(sk)} of {len(frames)} frames; need 3")
     summ = {"board_rgb": [round(med([r["board_white"][i] for r in per]), 3) for i in range(3)],
             "board_patch_rgb": [round(med([r["board_rgb"][i] for r in per]), 3) for i in range(3)],
             "shadow_rgb": [round(med([r["shadow_rgb"][i] for r in per if r["shadow_rgb"]]), 3) for i in range(3)],

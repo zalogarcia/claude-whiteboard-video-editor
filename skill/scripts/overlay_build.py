@@ -5,14 +5,14 @@
     (scale 0.80 -> 1 with a small overshoot, words fading in one after another), a steady hold,
     a quick scale down and fade out, off by about 3.6 s
 The colors, the font and the sizes are DEFAULTS read from ../look.json (look.py): change them there.
-Placement is measured, not assumed: every frame's keep out boxes (his face, the board item the
+Placement is measured, not assumed: every frame's keep out boxes (the speaker's face, the board item the
 camera is on) come from overlay_geom.py; the headline gets ONE position for its whole life and
 the captions one position per shot, the first candidate that is clear on every frame.
 
 Usage: python3 overlay_build.py <edit_dir> <kind> <words.json> <headline text> <out_dir> [cap_override.json]
 cap_override.json (optional): {"<shot start frame>": [x, y]} pins that shot's caption centre (for
-example when chip_readback.py finds a chip split by his lav mic); the audit still checks it and the
-run stops if a pinned position overlaps his face, the item, the headline or leaves the safe box.
+example when chip_readback.py finds a chip split by the speaker's lav mic); the audit still checks it and the
+run stops if a pinned position overlaps the speaker's face, the item, the headline or leaves the safe box.
 Writes <out_dir>/overlays.json (layers + per frame placements, read by the renderer),
 <out_dir>/layers/*.rgba, <out_dir>/audit.json (per frame overlap numbers) and chips.json.
 """
@@ -139,7 +139,7 @@ while i < len(words):
     chips.append({"text": " ".join(x["text"] for x in grp).upper(), "s": grp[0]["start"], "e": grp[-1]["end"], "clip": a["clip"]})
     i += len(grp)
 # display windows in frames: from the first word's onset (one frame early) to the next chip, or
-# to the word end plus 0.35 s when he pauses; never across a reel clip edge by more than the gap
+# to the word end plus 0.35 s when the speaker pauses; never across a reel clip edge by more than the gap
 for k, c in enumerate(chips):
     nxt = chips[k + 1] if k + 1 < len(chips) else None
     s = c["s"] - 1 / fps
@@ -329,7 +329,7 @@ for cy in cy_c:
     if H_POS:
         break
 if H_POS is None:
-    raise SystemExit("no headline position is clear of his face and the board item on every frame")
+    raise SystemExit("no headline position is clear of the speaker's face and the board item on every frame")
 H_BOX = place_box(H_POS[0], H_POS[1], hw_full, hh_full)
 
 # headline layers per variant: one per frame, exact fractional scale about the panel centre

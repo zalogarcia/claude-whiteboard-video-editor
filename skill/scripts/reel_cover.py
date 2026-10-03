@@ -13,7 +13,7 @@ Stage 2, compose:
   python3 reel_cover.py compose <edit_dir> <kind> <overlay_dir> <out_dir> <frame> <name> [headline_cy]
   Writes <out_dir>/<name>-h<k>-cover.png and .jpg (1080x1920) per variant, and
   <out_dir>/<name>-covers-grid-check.png: each cover beside its centred 3:4 crop (what the
-  Instagram profile grid shows), so the whole headline and his face can be checked in the crop.
+  Instagram profile grid shows), so the whole headline and the speaker's face can be checked in the crop.
 The headline PNGs come from overlay_build.py (<overlay_dir>/headline_h<k>_settled_2x.png); the
 headline centre and the face boxes from <overlay_dir>/audit.json and overlay_geom.py.
 """

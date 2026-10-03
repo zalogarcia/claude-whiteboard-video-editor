@@ -192,7 +192,7 @@ def place_out(a_end: float, zone_hi: float, env: Envelope, pad: float) -> tuple[
     edge = min(max(a_end + pad, lo), hi)
     off = env.offset_after(a_end - 0.05, hi)
     if off is None:
-        # no pause at all (he ran straight into the removed word): the quietest point
+        # no pause at all (the speaker ran straight into the removed word): the quietest point
         # that still keeps the 30 ms pad and stays short of the next token
         flags.append("speech energy through the whole out window")
         t = env.quietest(lo, hi, env.before)

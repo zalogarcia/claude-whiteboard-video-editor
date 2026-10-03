@@ -1,5 +1,5 @@
 """Face and head joints for EVERY frame of a reel (not the 4 per second track), so overlay
-keep out boxes follow his head exactly, even when he moves fast.
+keep out boxes follow the speaker's head exactly, even when the speaker moves fast.
 
 Usage: python3 reel_faces.py <props.json> <out_dir>
 Decodes each reel segment's source frames (frame exact seek, as the renderer does) at
@@ -40,7 +40,7 @@ for f in range(n_total):
     box = None
     if fc:
         box = [fc[0] * SW, fc[1] * SH, (fc[0] + fc[2]) * SW, (fc[1] + fc[3]) * SH]
-        # a face box that holds none of his head joints is a drawing on the board, not him
+        # a face box that holds none of the speaker's head joints is a drawing on the board, not the speaker
         if head and not any(box[0] <= p[0] * SW <= box[2] and box[1] <= p[1] * SH <= box[3] for p in head):
             box = None
     if box is None and head:
