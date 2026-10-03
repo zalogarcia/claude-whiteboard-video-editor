@@ -1,0 +1,22 @@
+# compiled Apple Vision helpers (built by skill/scripts/setup.sh)
+skill/scripts/pose
+skill/scripts/ocr
+skill/scripts/face-screen
+# python and node leftovers
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+# footage, audio and work folders never belong in this repo
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.mkv
+*.wav
+*.m4a
+*.mp3
+*.aac
+*.cube
+*.rgba
+/work/
